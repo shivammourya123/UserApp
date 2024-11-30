@@ -1,0 +1,12 @@
+<%= turbo_frame_tag "messages" do %>
+  <div id="messages" data-chat-room-id="<%= @chat_room.id %>">
+    <%= render @messages %>
+  </div>
+<% end %>
+
+<%= form_with model: [@chat_room, Message.new], data: { turbo: "true" } do |form| %>
+  <div class="form-group">
+    <%= form.text_field :content, class: "form-control", placeholder: "Type a message..." %>
+  </div>
+  <%= form.submit "Send", class: "btn btn-primary" %>
+<% end %>

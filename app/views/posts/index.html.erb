@@ -1,0 +1,60 @@
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Posts</h1>
+
+  <% @posts.each do |post| %>
+    <div class="card mb-4">
+      <div class="card-body">
+        <!-- Post Content -->
+        <h5 class="card-title"><%= post.text %></h5>
+        <p class="card-text"><%= post.description %></p>
+
+        <!-- Post Images -->
+        <% if post.images.attached? %>
+          <div class="d-flex flex-wrap mb-3">
+            <% post.images.each do |image| %>
+              <%= image_tag image, class: "img-fluid rounded mr-2 mb-2" %>
+            <% end %>
+          </div>
+        <% end %>
+
+        <!-- Post Actions -->
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <!-- Like/Unlike Button -->
+            <% if post.count_check == false %>
+              <%= button_to "Like", like_post_path(post), method: :post, class: "btn btn-sm btn-success" %>
+            <% else %>
+              <%= button_to "Unlike", like_post_path(post), method: :post, class: "btn btn-sm btn-danger" %>
+            <% end %>
+
+            <!-- Total Likes -->
+            <span class="ml-2 badge badge-primary"><%= post.total_count %> Likes</span>
+          </div>
+
+          <!-- Edit Button -->
+          <% if current_user&.id == post.user_id %>
+            <%= link_to "Edit", edit_post_path(post), class: "btn btn-sm btn-primary" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Footer Actions -->
+   <div>
+      <%= link_to 'Chat', chat_rooms_path, class: "btn btn-secondary" %>
+    </div>
+
+    <div>
+      <%= link_to 'Fetch Products', fetch_product_products_path, class: "btn btn-secondary" %>
+    </div>
+  <div class="d-flex justify-content-between mt-4">
+    <%= link_to 'New Post', new_post_path, class: "btn btn-primary" %>
+    <div>
+      <%= link_to 'Sign in', new_user_session_path, class: "btn btn-secondary" %>
+      <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+    </div>
+  </div>
+</div>
+
+

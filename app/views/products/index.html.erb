@@ -1,0 +1,19 @@
+<div class="container mt-4">
+  <h1 class="text-center">Product List</h1>
+  <div class="row">
+    <% @products.each do |product| %>
+
+      <div class="col-md-3 mb-4">
+        <div class="card h-100">
+          <img src="<%= product.image %>" class="card-img-top" alt="<%= product.title %>">
+          <div class="card-body">
+            <h5 class="card-title"><%= product.title %></h5>
+            <p class="card-text"><%= truncate(product.description, length: 100) %></p>
+            <p class="card-text font-weight-bold">$<%= product.price %></p>
+            <p class="card-text">Rating: <%= product.rating_rate %> (Count: <%= product.rating_count %>)</p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
